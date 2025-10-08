@@ -24,46 +24,79 @@ function App() {
     }
   };
 
-  const deleteCard = (id) => {
-    setCards(cards.filter(card => card.id !== id));
-  };
-
-  return (
-    <div className="app">
-      <h1>Простая система карточек</h1>
-      
-      <div className="form">
-        <input
-          type="text"
-          placeholder="Заголовок"
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Текст"
-          value={newText}
-          onChange={(e) => setNewText(e.target.value)}
-        />
-        <button onClick={addCard}>Добавить карточку</button>
-      </div>
-
-      <div className="cards">
-        {cards.map(card => (
-          <div key={card.id} className="card">
-            <h3>{card.title}</h3>
-            <p>{card.text}</p>
-            <button 
-              className="delete-btn"
-              onClick={() => deleteCard(card.id)}
-            >
-              Удалить
-            </button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+cat > src/App.css << 'EOF'
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-export default App;
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.form input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.form button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: #0056b3;
+}
+
+.cards {
+  display: grid;
+  gap: 15px;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.card p {
+  margin: 0 0 10px 0;
+  color: #666;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
