@@ -40,7 +40,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Система управления карточками</h1>
-        <p>Лабораторная работа 2: Разработка компонентов</p>
+        <p>Лабораторная работа 2: Разработка компонентов карточек и форм</p>
       </header>
       
       <main className="main-content">
