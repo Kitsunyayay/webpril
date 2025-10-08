@@ -1,64 +1,67 @@
 import React, { useState } from 'react';
 import './App.css';
-import Card from './components/Card';
-import AddForm from './components/AddForm';
 
 function App() {
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      title: 'Первая задача',
-      description: 'Это описание первой задачи в нашем приложении',
-      category: 'Работа',
-      date: '08.10.2024'
-    },
-    {
-      id: 2,
-      title: 'Учебный проект',
-      description: 'Разработка React приложения для лабораторной работы',
-      category: 'Учеба',
-      date: '07.10.2024'
-    },
-    {
-      id: 3,
-      title: 'Личные заметки',
-      description: 'Важные заметки и идеи для реализации',
-      category: 'Личное',
-      date: '06.10.2024'
-    }
+  const [cards, setCards] = useState([
+    { id: 1, title: 'Первая карточка', text: 'Простой текст' },
+    { id: 2, title: 'Вторая карточка', text: 'Еще один текст' },
+    { id: 3, title: 'Третья карточка', text: 'Последний текст' }
   ]);
 
-  const handleAddItem = (newItem) => {
-    setItems([newItem, ...items]);
+  const [newTitle, setNewTitle] = useState('');
+  const [newText, setNewText] = useState('');
+
+  const addCard = () => {
+    if (newTitle.trim() && newText.trim()) {
+      const newCard = {
+        id: Date.now(),
+        title: newTitle,
+        text: newText
+      };
+      setCards([...cards, newCard]);
+      setNewTitle('');
+      setNewText('');
+    }
   };
 
-  const handleDeleteItem = (id) => {
-    setItems(items.filter(item => item.id !== id));
+  const deleteCard = (id) => {
+    setCards(cards.filter(card => card.id !== id));
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Система управления карточками</h1>
-        <p>Лабораторная работа 2: Разработка компонентов карточек и форм</p>
-      </header>
+    <div className="app">
+      <h1>Простая система карточек</h1>
       
-      <main className="main-content">
-        <AddForm onAdd={handleAddItem} />
-        
-        <div className="cards-section">
-          <h2>Мои карточки ({items.length})</h2>
-          <div className="cards-container">
-            {items.map(item => (
-              <Card 
-                key={item.id} 
-                item={item} 
-                onDelete={handleDeleteItem}
-              />
-            ))}
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Заголовок"
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Текст"
+          value={newText}
+          onChange={(e) => setNewText(e.target.value)}
+        />
+        <button onClick={addCard}>Добавить карточку</button>
+      </div>
+
+      <div className="cards">
+        {cards.map(card => (
+          <div key={card.id} className="card">
+            <h3>{card.title}</h3>
+            <p>{card.text}</p>
+            <button 
+              className="delete-btn"
+              onClick={() => deleteCard(card.id)}
+            >
+              Удалить
+            </button>
           </div>
-        </div>
-      </main>
+        ))}
+      </div>
     </div>
   );
 }
